@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { width: 300px; padding: 10px; font-family: Arial, sans-serif; }
+    input, textarea { width: 100%; box-sizing: border-box; margin-bottom: 10px; }
+    input { height: 30px; padding: 5px; }
+    textarea { height: 60px; resize: vertical; padding: 5px; font-size: 12px; }
+    button { width: 100%; padding: 10px; background: #0060df; color: white; border: none; cursor: pointer; }
+    button:hover { background: #003eaa; }
+    .error { color: red; }
+    .output { color: green; }
+  </style>
+</head>
+<body>
+  <label>Input:</label>
+  <input type="text" id="inputField" placeholder="Enter text here">
+  
+  <button id="sendButton">Send to Background</button>
+  
+  <label>Errors:</label>
+  <textarea id="errorOutput" readonly placeholder="Errors appear here..."></textarea>
+  
+  <label>Output:</label>
+  <textarea id="generalOutput" readonly placeholder="Results appear here..."></textarea>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

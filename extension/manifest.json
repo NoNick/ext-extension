@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "JSON Input Extension",
+  "version": "1.0",
+  "description": "Input and process JSON data",
+  "background": { "scripts": ["background.js"] },
+  "host_permissions": [
+    "https://ext.to/*"
+  ],
+  "permissions": ["activeTab", "scripting", "tabs", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Magents Finder"
+  },
+  "icons": {
+    "48": "icon48.png"
+  },
+  "content_scripts": [{
+    "matches": ["https://ext.to/*"],
+    "js": ["content.js"],
+    "run_at": "document_start"
+  }]
+}
