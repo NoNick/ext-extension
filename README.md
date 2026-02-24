@@ -1,4 +1,4 @@
-This extension finds torrent magnets on ext.to for given torrent contents (already downloaded).
+This extension finds torrent magnets on ext.to for given torrent contents, i.e. already downloaded files.
 
 Usage:
 - To install popup go to about:debugging#/runtime/this-firefox and choose Load Temporary Add-on
