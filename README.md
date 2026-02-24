@@ -9,4 +9,4 @@ Usage:
 
 TODO:
 - doesn't work when popup window is closed
-- integrate with qbt
+- integrate with qbt https://github.com/ludviglundgren/qbittorrent-cli
