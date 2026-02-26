@@ -15,9 +15,16 @@
   "icons": {
     "48": "icon48.png"
   },
-  "content_scripts": [{
+  "content_scripts": [
+  {
     "matches": ["https://ext.to/*"],
-    "js": ["content.js"],
+    "js": ["promt_overload.js"],
     "run_at": "document_start"
-  }]
+  },
+  {
+    "matches": ["https://ext.to/*"],
+    "js": ["search_injection.js"],
+    "run_at": "document_idle"
+  }
+  ]
 }

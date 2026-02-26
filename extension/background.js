@@ -1,10 +1,11 @@
 // Service worker for background tasks
-MAX_RETRIES = 3
-TIMEOUT_SEARCH_SEC = 30
-TIMEOUT_GRAB_MAGNET_SEC = 5
+MAX_RETRIES = 2
+TIMEOUT_SEARCH_SEC = 10
+TIMEOUT_GRAB_MAGNET_SEC = 3
 
 isError = true
 currentFilename = ''
+currentSizeBytes=0
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -50,9 +51,9 @@ async function performSearch(filename) {
 
 async function traverse(json) {
     for (i = 0; i < json.items.length; i++) {
-        bytes = json.items[i].size_bytes;
+        currentSizeBytes = json.items[i].size_bytes;
         filename = json.items[i].file;
-        console.log(filename);
+        console.log("Next search ", json.items[i]);
         isError = true;
         for (j = 0; j < MAX_RETRIES; j++) {
             isError = await performSearch(filename);
@@ -67,12 +68,16 @@ async function traverse(json) {
     }
 }
 
+function formatMagent(url, dir) {
+    return "qbt torrent add '" + url + "' --save-path '" + dir + "'"
+}
+
 async function showMagnet(magnet) {
     result = await browser.storage.local.get(['list', 'output']);
     
     console.log(magnet);
     browser.storage.local.set({
-        output: result.output + magnet + '\n',
+        output: result.output + formatMagent(magnet, result.list.dir) + '\n',
     });
     
 //    browser.runtime.sendMessage({
@@ -103,13 +108,14 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   } else if (message.action == 'magnetFailed') {
     isError = true;
     showError();
+  } else if (message.action == 'getSizeBytes') {
+    console.log(currentSizeBytes);
+    sendResponse({sizeBytes: currentSizeBytes});
   }
 
   // Keep the message channel open for async responses
   return true;
 });
-
-
 
 // Optional: Log when extension loads
 console.log('Background script loaded');
